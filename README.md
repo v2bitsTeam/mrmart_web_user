@@ -23,3 +23,13 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Most Important
+
+The razorpay live key which is saved inside environment file is not backed up to git for security reasons. To make sure that the app works as expected:
+
+Firstly, add .env file to the root level directory (where package.json is present).
+
+Second, add anew key called "REACT_APP_RAZORPAY_LIVE_API_KEY" and add the live key value to it and save the file.
+
+That's it, the key will be picked up by react and payment will work as expected.
