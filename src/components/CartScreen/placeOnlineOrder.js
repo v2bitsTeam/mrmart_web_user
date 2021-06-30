@@ -39,7 +39,7 @@ async function makePaymentRazorpay(
   updateSnackBar
 ) {
   const paymentOptions = {
-    key: process.env.REACT_APP_RAZORPAY_TEST_API_KEY,
+    key: process.env.REACT_APP_RAZORPAY_LIVE_API_KEY,
     order_id: orderId,
     amount: total * 100,
     currency: "INR",

@@ -41,6 +41,11 @@ const Footer = () => {
           </div>
         </Hidden>
         <Container className={classes.topSectionBody}>
+          <div className={classes.logoContainer}>
+            <Hidden smDown>
+              <img alt={"logo"} src={logoWhite} className={classes.logo} />
+            </Hidden>
+          </div>
           <div className={classes.topSectionLinksContainer}>
             <Link
               to="/about"
@@ -96,22 +101,6 @@ const Footer = () => {
                 <ListItemText primary="Terms & Conditions" />
               </ListItem>
             </Link>
-          </div>
-          <div className={classes.socialsContainer}>
-            <div className={classes.socials}>
-              <IconButton color="primary" aria-label="facebook">
-                <FacebookIcon className={classes.facebookIcon} />
-              </IconButton>
-              <IconButton color="primary" aria-label="twitter">
-                <TwitterIcon className={classes.twitterIcon} />
-              </IconButton>
-              <IconButton color="primary" aria-label="instagram">
-                <InstagramIcon className={classes.instaIcon} />
-              </IconButton>
-            </div>
-            <Hidden smDown>
-              <img alt={"logo"} src={logoWhite} className={classes.logo} />
-            </Hidden>
           </div>
         </Container>
       </div>
@@ -182,12 +171,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#efefef",
     textDecoration: "none",
   },
-  socialsContainer: {
-    width: "50%",
+  logoContainer: {
+    width: "30%",
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+  },
+  socialsContainer: {
+    flexDirection: "column",
     gap: "3rem",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
@@ -196,48 +187,14 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "space-around",
     },
   },
-  socials: {
-    width: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "3rem",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      paddingTop: "0.5rem",
-      paddingBottom: "1rem",
-      justifyContent: "space-around",
-    },
-  },
   logo: {
-    height: "10vh",
+    height: "12vh",
     objectFit: "contain",
-    alignSelf: "flex-end",
     [theme.breakpoints.down("sm")]: {
       alignSelf: "center",
     },
   },
-  facebookIcon: {
-    color: "#fff",
-    fontSize: "2rem",
-    "&:hover": {
-      color: "#4267B2",
-    },
-  },
-  twitterIcon: {
-    color: "#fff",
-    fontSize: "2rem",
-    "&:hover": {
-      color: "#1DA1F2",
-    },
-  },
-  instaIcon: {
-    color: "#fff",
-    fontSize: "2rem",
-    "&:hover": {
-      color: "#E1306C",
-    },
-  },
+
   bottomSection: {
     background: "#212121",
     color: "#fafafa",
