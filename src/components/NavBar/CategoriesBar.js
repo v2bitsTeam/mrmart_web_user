@@ -84,17 +84,7 @@ const CategoriesBar = () => {
 
   return (
     <div className={classes.categoriesWrapper}>
-      <div
-        className={classes.categoriesContainer}
-        aria-label="Categories"
-        style={
-          featuredCategories.length < 5 && {
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: "2rem",
-          }
-        }
-      >
+      <div className={classes.categoriesContainer} aria-label="Categories">
         <Button
           aria-label="open drawer"
           onClick={handleClick}
@@ -137,27 +127,32 @@ const CategoriesBar = () => {
                 }
               >
                 <Link to="/" className={classes.menuLinks}>
-                  {category.category_name}
+                  {category.category_name.toLowerCase()}
                 </Link>
               </MenuItem>
             ))}
         </Menu>
         {featuredCategories &&
-          featuredCategories.map((category) => (
-            <Link
-              key={category.cid}
-              to="/"
-              color="textSecondary"
-              className={
-                selectedCategory === category.cid
-                  ? classes.activeNavLink
-                  : classes.navLink
-              }
-              onClick={() => handleCategoryClick(category.cid)}
-            >
-              {category.category_name}
-            </Link>
-          ))}
+          featuredCategories.map((category, index) => {
+            if (index < 7) {
+              return (
+                <Link
+                  key={category.cid}
+                  to="/"
+                  color="textSecondary"
+                  className={
+                    selectedCategory === category.cid
+                      ? classes.activeNavLink
+                      : classes.navLink
+                  }
+                  onClick={() => handleCategoryClick(category.cid)}
+                >
+                  {category.category_name.toLowerCase()}
+                </Link>
+              );
+            }
+            return 1;
+          })}
       </div>
     </div>
   );
@@ -186,7 +181,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     padding: ".2rem 0",
-    marginLeft: "-2rem",
+    marginLeft: "0rem",
+    gap: "2rem",
+    [theme.breakpoints.down("md")]: {
+      gap: "0.5rem",
+    },
   },
   menuTitle: {
     paddingLeft: "0.4rem",
@@ -196,9 +195,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "#333",
   },
-  menuItem: {},
+  menuItem: {
+    textTransform: "capitalize",
+  },
   activeMenuItem: {
     background: "#9999",
+
+    textTransform: "capitalize",
     "&:hover": {
       background: "#9999",
     },
@@ -206,9 +209,15 @@ const useStyles = makeStyles((theme) => ({
   navLink: {
     color: "#cdcdcd",
     textDecoration: "none",
+    fontSize: "1rem",
+    textTransform: "capitalize",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "0.9rem",
+    },
   },
   activeNavLink: {
     color: "#fff",
     textDecoration: "none",
+    textTransform: "capitalize",
   },
 }));

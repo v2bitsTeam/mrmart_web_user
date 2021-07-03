@@ -94,8 +94,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   itemImage: {
-    width: "100px",
-    height: "100px",
+    width: "120px",
+    height: "120px",
+    objectFit: "contain",
   },
   verticalDivider: {
     width: "0.1rem",

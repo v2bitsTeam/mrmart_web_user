@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import Tab from "@material-ui/core/Tab";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -45,10 +46,9 @@ const DrawBar = ({ openDrawer, setOpenDrawer }) => {
       >
         <Link to="/" className={classes.menuLinks}>
           <Tab
-            style={
-              selectedCategory === null ? { backgroundColor: "#858585" } : {}
-            }
-            className={classes.drawerItem}
+            className={clsx(classes.drawerItem, {
+              [classes.drawerItemSelectedNull]: selectedCategory === null,
+            })}
             label="Show All"
             onClick={() => handleTabClick(null)}
           />
@@ -57,12 +57,9 @@ const DrawBar = ({ openDrawer, setOpenDrawer }) => {
           categories.map((category) => (
             <Link key={category.id} to="/" className={classes.menuLinks}>
               <Tab
-                style={
-                  selectedCategory === category.cid
-                    ? { backgroundColor: "#858585" }
-                    : {}
-                }
-                className={classes.drawerItem}
+                className={clsx(classes.drawerItem, {
+                  [classes.drawerItemSelectedNull]: selectedCategory === null,
+                })}
                 label={category.category_name}
                 onClick={() => handleTabClick(category.cid)}
               />
@@ -93,6 +90,7 @@ const useStyles = makeStyles({
       backgroundColor: "#555",
     },
   },
+  drawerItemSelectedNull: { backgroundColor: "#858585" },
 });
 
 const mobileTheme = createMuiTheme({

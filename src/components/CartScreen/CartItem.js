@@ -201,6 +201,7 @@ const useStyles = makeStyles((theme) => ({
   productImage: {
     width: "176px",
     height: "176px",
+    objectFit: "contain",
     paddingTop: "none",
     [theme.breakpoints.down("sm")]: {
       width: "80px",

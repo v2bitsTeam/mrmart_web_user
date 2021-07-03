@@ -109,7 +109,7 @@ const Product = ({
   return (
     <Card className={classes.card}>
       <div className={classes.discountBlock}>
-        {product.discount && (
+        {product.discount > 0 && (
           <>
             <img
               alt={"logo"}
@@ -164,7 +164,7 @@ const Product = ({
               calculateDiscountedPrice(product.price, product.discount)
             )}
           </Typography>
-          {product.discount ? (
+          {product.discount > 0 ? (
             <Typography
               className={classes.originalPrice}
               gutterBottom

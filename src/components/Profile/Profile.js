@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import clsx from "clsx";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +10,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Tooltip from "@material-ui/core/Tooltip";
 import { mediaUrl } from "../../helpers/Constants";
 import updateProfile from "./updateProfile";
-import UserLogin from "../LogIn/UserLogin";
+import userLogin from "../LogIn/userLogin";
 import { useUserUpdate } from "../../contexts/UserContext";
 
 const Profile = ({
@@ -25,6 +26,7 @@ const Profile = ({
   const [imageEdited, setImageEdited] = useState(false);
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -32,6 +34,7 @@ const Profile = ({
   const [pinCode, setPinCode] = useState("");
   const [imageError, setImageError] = useState(null);
   const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [mobileError, setMobileError] = useState("");
   const [addressError, setAddressError] = useState("");
   const [cityError, setCityError] = useState("");
@@ -47,6 +50,7 @@ const Profile = ({
     if (mounted) {
       setUrl(mediaUrl + user.profile_image);
       setName(user.name);
+      setEmail(user.email);
       setMobile(user.mobile);
       setAddress(user.location);
       setCity(user.city);
@@ -66,6 +70,7 @@ const Profile = ({
     if (mounted) {
       user.profile_image ? setUrl(mediaUrl + user.profile_image) : setUrl("");
       setName(user.name);
+      setEmail(user.email);
       setMobile(user.mobile);
       setAddress(user.location);
       setCity(user.city);
@@ -83,6 +88,7 @@ const Profile = ({
     setUrl("");
     setImage(null);
     setName("");
+    setEmail("");
     setMobile("");
     setAddress("");
     setCity("");
@@ -93,6 +99,7 @@ const Profile = ({
   const clearErrors = () => {
     setImageError(null);
     setNameError("");
+    setEmailError("");
     setMobileError("");
     setAddressError("");
     setCityError("");
@@ -119,8 +126,11 @@ const Profile = ({
 
     selected && imageReader.readAsDataURL(selected);
     if (selected && imageTypes.includes(selected.type)) {
+      let fileName = `${user.mobile}.${selected.name.split(".")[1]}`;
+      var newFile = new File([selected], fileName, { type: selected.type });
+
       setImageEdited(true);
-      setImage(selected);
+      setImage(newFile);
       setImageError("");
     } else {
       setImageEdited(false);
@@ -131,9 +141,13 @@ const Profile = ({
 
   async function handleSubmit() {
     let validString = /^[a-zA-Z][a-zA-Z\s][a-zA-Z\s]*$/;
+    const validEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     clearErrors();
     if (
       name === user.name &&
+      email === user.email &&
       (url !== null || url.split("images/")[1] === user.profile_image) &&
       mobile === user.mobile &&
       address === user.location &&
@@ -154,6 +168,14 @@ const Profile = ({
     }
     if (!name.match(validString)) {
       setNameError("Invalid Name");
+      return;
+    }
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    }
+    if (!validEmail.test(String(email).toLowerCase())) {
+      setEmailError("Invalid Email");
       return;
     }
     if (!mobile) {
@@ -202,6 +224,7 @@ const Profile = ({
     formData.append("profile_image", image);
     formData.append("uid", user.uid);
     formData.append("name", name);
+    formData.append("email", email);
     formData.append("location", address);
     formData.append("city", city);
     formData.append("state", state);
@@ -217,7 +240,7 @@ const Profile = ({
       clearInputs();
       setUploading(false);
 
-      const data = await UserLogin(user.mobile, user.password);
+      const data = await userLogin(user.mobile, user.password);
       if (data.role) {
         updateUserData(data);
         localStorage.setItem("userDetails", JSON.stringify(data));
@@ -260,7 +283,9 @@ const Profile = ({
       <Typography
         color="error"
         align="left"
-        style={imageError ? {} : { display: "none" }}
+        className={clsx({
+          [classes.displayNone]: !imageError,
+        })}
       >
         <br /> {imageError}
       </Typography>
@@ -286,6 +311,24 @@ const Profile = ({
             fullWidth
           />
         </Tooltip>
+      </div>
+      <br />
+
+      <div className={classes.inputFieldsBlock}>
+        <TextField
+          autoFocus
+          required
+          label="Email"
+          variant="outlined"
+          value={email}
+          disabled={!edit}
+          error={emailError ? true : false}
+          helperText={emailError}
+          onClick={() => setEmailError("")}
+          onChange={(e) => setEmail(e.target.value)}
+          className={classes.inputFields}
+          fullWidth
+        />
         <TextField
           autoFocus
           required
@@ -367,14 +410,18 @@ const Profile = ({
       <Typography
         color="error"
         align="left"
-        style={uploadError ? {} : { display: "none" }}
+        className={clsx({
+          [classes.displayNone]: !uploadError,
+        })}
       >
         {uploadError}
         <br />
       </Typography>
       <div
-        className={classes.inputFieldsBlock}
-        style={uploading ? { display: "block" } : { display: "none" }}
+        className={clsx(classes.inputFieldsBlock, {
+          [classes.displayBlock]: uploading,
+          [classes.displayNone]: !uploading,
+        })}
       >
         <br />
         <LinearProgress />
@@ -465,6 +512,8 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
     },
   },
+  displayBlock: { display: "block" },
+  displayNone: { display: "none" },
   textblock: {
     display: "flex",
     alignItems: "center",

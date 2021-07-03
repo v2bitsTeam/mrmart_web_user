@@ -113,6 +113,7 @@ const OrderValue = ({
           user.uid,
           user.name,
           user.mobile,
+          user.email,
           response.order_id,
           setOrderPlaced,
           updateSnackBar

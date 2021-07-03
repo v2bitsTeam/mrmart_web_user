@@ -143,7 +143,7 @@ const ProductDetails = ({
             </Typography>
 
             <div className={classes.discountBlock}>
-              {product.discount && (
+              {product.discount > 0 && (
                 <>
                   <img
                     alt={"logo"}
@@ -162,7 +162,7 @@ const ProductDetails = ({
               component="span"
               className={classes.actualPrice}
             >
-              {product.discount && formatPrice.format(product.price)}
+              {product.discount > 0 && formatPrice.format(product.price)}
             </Typography>
           </div>
         </Box>

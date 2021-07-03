@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import clsx from "clsx";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import Container from "@material-ui/core/Container";
@@ -177,17 +178,9 @@ const ChooseLocationModal = ({
           )}
         </Container>
         <div
-          className="input-fields-arranger"
-          style={
-            loading
-              ? {
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }
-              : { display: "none" }
-          }
+          className={clsx(classes.displayNone, {
+            [classes.displayFlex]: loading,
+          })}
         >
           <br />
           <CircularProgress />
@@ -245,6 +238,15 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  displayNone: {
+    display: "none",
+  },
+  displayFlex: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   removeIcon: {
     padding: "0 1rem",

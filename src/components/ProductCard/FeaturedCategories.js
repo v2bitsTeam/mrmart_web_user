@@ -66,7 +66,7 @@ const FeaturedCategories = () => {
                 component="div"
                 className={classes.categoryName}
               >
-                {category.category_name}
+                {category.category_name.toLowerCase()}
               </Typography>
             </div>
           ))}
@@ -95,6 +95,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
+    gap: "1rem",
+    flexWrap: "wrap",
   },
   featuredCategoryItem: {
     width: "200px",
@@ -107,14 +109,27 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     gap: "0.5rem",
     cursor: "pointer",
+    [theme.breakpoints.down("md")]: {
+      width: "150px",
+      height: "150px",
+      gap: "0.1rem",
+    },
   },
   categoryImage: {
     width: "150px",
     height: "150px",
-    fit: "contain",
+    objectFit: "contain",
+    [theme.breakpoints.down("md")]: {
+      width: "120px",
+      height: "120px",
+    },
   },
   categoryName: {
     fontSize: "1rem",
     fontWeight: "500",
+    textTransform: "capitalize",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "0.9rem",
+    },
   },
 }));

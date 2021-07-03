@@ -58,7 +58,7 @@ const ContactUs = () => {
           src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3806.709569764773!2d78.4202587!3d17.4257201!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb912d3ddc2769%3A0xf9ef63ef54724ffe!2sShangrila%20Plaza!5e0!3m2!1sen!2sin!4v1624696476092!5m2!1sen!2sin"
           width="600"
           height="450"
-          style={{ border: 0 }}
+          style={{ border: "0" }}
           allowFullScreen=""
           loading="lazy"
         ></iframe>

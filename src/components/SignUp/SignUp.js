@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
+import clsx from "clsx";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -11,7 +12,7 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import SignUpBg from "../../assets/images/login-bg-left.jpg";
 import Hidden from "@material-ui/core/Hidden";
-import UserSignUp from "./UserSignUp";
+import userSignUp from "./userSignUp";
 import { useUserUpdate } from "../../contexts/UserContext";
 import logoOrange from "../../assets/images/logo-orange.png";
 import logoWhite from "../../assets/images/logo-white.png";
@@ -25,6 +26,7 @@ const SignUp = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,6 +36,7 @@ const SignUp = () => {
   const [pinCode, setPinCode] = useState("");
   const [imageError, setImageError] = useState(null);
   const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -49,6 +52,7 @@ const SignUp = () => {
     setUrl("");
     setImage(null);
     setFullName("");
+    setEmail("");
     setPhone("");
     setPassword("");
     setConfirmPassword("");
@@ -61,6 +65,7 @@ const SignUp = () => {
   const clearErrors = () => {
     setImageError(null);
     setNameError("");
+    setEmailError("");
     setPhoneError("");
     setPasswordError("");
     setConfirmPasswordError("");
@@ -95,6 +100,9 @@ const SignUp = () => {
   const handleSubmit = async () => {
     let validString = /^[a-zA-Z][a-zA-Z\s][a-zA-Z\s]*$/;
 
+    const validEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     clearErrors();
     if (!fullName) {
       setPassword("");
@@ -110,6 +118,18 @@ const SignUp = () => {
       setPassword("");
       setConfirmPassword("");
       setNameError("Invalid Name");
+      return;
+    }
+    if (!email) {
+      setPassword("");
+      setConfirmPassword("");
+      setEmailError("Email is required");
+      return;
+    }
+    if (!validEmail.test(String(email).toLowerCase())) {
+      setPassword("");
+      setConfirmPassword("");
+      setEmailError("Invalid Email");
       return;
     }
     if (!phone) {
@@ -189,19 +209,25 @@ const SignUp = () => {
       setPinCodeError("Invalid PinCode");
       return;
     }
+
+    let fileName = image === null ? "" : `${phone}.${image.name.split(".")[1]}`;
+    let newFile =
+      image === null ? "" : new File([image], fileName, { type: image.type });
+
     setUploading(true);
     const formData = new FormData();
     formData.append("name", fullName);
+    formData.append("email", email);
     formData.append("mobile", phone);
     formData.append("password", password);
     formData.append("location", address);
     formData.append("city", city);
     formData.append("state", state);
     formData.append("pincode", pinCode);
-    formData.append("profile_image", image === null ? "" : image);
-    console.log(image);
-    const response = await UserSignUp(formData);
-    console.log(response);
+    formData.append("profile_image", newFile);
+
+    const response = await userSignUp(formData);
+
     if (response.status) {
       clearInputs();
       setUploading(false);
@@ -276,22 +302,38 @@ const SignUp = () => {
         <Typography
           color="error"
           align="left"
-          style={imageError ? {} : { display: "none" }}
+          className={clsx({
+            [classes.displayNone]: !imageError,
+          })}
         >
           <br /> {imageError}
         </Typography>
+        <br />
+        <TextField
+          autoFocus
+          required
+          label="Full Name"
+          variant="outlined"
+          value={fullName}
+          error={nameError ? true : false}
+          helperText={nameError}
+          onClick={() => setNameError("")}
+          onChange={(e) => setFullName(e.target.value)}
+          className={classes.inputFields}
+          fullWidth
+        />
         <br />
         <div className={classes.inputFieldsBlock}>
           <TextField
             autoFocus
             required
-            label="Full Name"
+            label="Email"
             variant="outlined"
-            value={fullName}
-            error={nameError ? true : false}
-            helperText={nameError}
-            onClick={() => setNameError("")}
-            onChange={(e) => setFullName(e.target.value)}
+            value={email}
+            error={emailError ? true : false}
+            helperText={emailError}
+            onClick={() => setEmailError("")}
+            onChange={(e) => setEmail(e.target.value)}
             className={classes.inputFields}
             fullWidth
           />
@@ -420,14 +462,18 @@ const SignUp = () => {
         <Typography
           color="error"
           align="left"
-          style={uploadError ? {} : { display: "none" }}
+          className={clsx({
+            [classes.displayNone]: !uploadError,
+          })}
         >
           <br /> {uploadError}
         </Typography>
         <br />
         <div
-          className={classes.inputFieldsBlock}
-          style={uploading ? { display: "block" } : { display: "none" }}
+          className={clsx(classes.inputFieldsBlock, {
+            [classes.displayBlock]: uploading,
+            [classes.displayNone]: !uploading,
+          })}
         >
           <br />
           <LinearProgress />
@@ -524,11 +570,8 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-85%, -55%)",
-    // background: "#333",
     padding: 0,
     margin: 0,
-    // width: "100%",
-    // height: "100%",
     color: "#fff",
   },
   inputFields: {
@@ -548,6 +591,9 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
     },
   },
+
+  displayBlock: { display: "block" },
+  displayNone: { display: "none" },
   mobileLogo: {
     height: "10vh",
     padding: "1rem 0",

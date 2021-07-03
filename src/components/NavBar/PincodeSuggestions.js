@@ -36,7 +36,9 @@ const PincodeSuggestions = (
                 button
                 key={pincodeData.id}
                 onClick={() => updatePincode(pincodeData)}
-                divider={index === searchSuggestions.length - 1 ? false : true}
+                divider={
+                  index === searchSuggestions.length - 1 ? +false : +true
+                }
               >
                 <ListItemText
                   primary={`${pincodeData.pincode} - ${pincodeData.address}`}

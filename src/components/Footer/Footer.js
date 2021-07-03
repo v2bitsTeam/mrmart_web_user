@@ -5,12 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import InstagramIcon from "@material-ui/icons/Instagram";
+import Hidden from "@material-ui/core/Hidden";
 import logoWhite from "../../assets/images/logo-white.png";
-import { Hidden } from "@material-ui/core";
 
 const Footer = () => {
   const classes = useStyles();

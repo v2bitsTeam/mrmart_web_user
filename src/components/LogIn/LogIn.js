@@ -10,7 +10,7 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import LoginBg from "../../assets/images/login-bg-right.jpg";
 import Hidden from "@material-ui/core/Hidden";
-import UserLogin from "./UserLogin";
+import userLogin from "./userLogin";
 import { useUserUpdate } from "../../contexts/UserContext";
 import CustomSnackbar from "../CustomSnackbar/CustomSnackbar";
 import logoOrange from "../../assets/images/logo-orange.png";
@@ -54,7 +54,7 @@ const LogIn = () => {
       return;
     }
     setLoading(true);
-    const user = await UserLogin(phone, password);
+    const user = await userLogin(phone, password);
     setLoading(false);
     if (user.role) {
       clearInputs();

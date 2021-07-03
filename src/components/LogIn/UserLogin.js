@@ -1,7 +1,7 @@
 import { postData } from "../../helpers/MakeNetworkCall";
 import { baseUrl } from "../../helpers/Constants";
 
-async function UserLogin(mobile, password) {
+async function userLogin(mobile, password) {
   const formData = new FormData();
   formData.append("mobile", mobile);
   formData.append("password", password);
@@ -12,4 +12,4 @@ async function UserLogin(mobile, password) {
   return response.message;
 }
 
-export default UserLogin;
+export default userLogin;

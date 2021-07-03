@@ -28,7 +28,9 @@ const SearchSuggestions = ({ searchSuggestions, clearSearch }, ref) => {
                 button
                 key={product.pid}
                 onClick={clearSearch}
-                divider={index === searchSuggestions.length - 1 ? false : true}
+                divider={
+                  index === searchSuggestions.length - 1 ? +false : +true
+                }
               >
                 <Link
                   to={{

@@ -34,6 +34,7 @@ async function makePaymentRazorpay(
   userId,
   userName,
   userMobile,
+  userEmail,
   orderId,
   setOrderPlaced,
   updateSnackBar
@@ -53,6 +54,7 @@ async function makePaymentRazorpay(
     prefill: {
       name: userName,
       contact: userMobile,
+      email: userEmail,
     },
     notes: {
       address:
