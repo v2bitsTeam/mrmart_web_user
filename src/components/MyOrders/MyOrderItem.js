@@ -229,6 +229,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "0.5rem",
     boxShadow:
       "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "0.2rem",
+    },
   },
   removeRoudedCorners: {
     borderRadius: "0.5rem 0.5rem 0 0",
@@ -237,6 +240,9 @@ const useStyles = makeStyles((theme) => ({
   },
   orderSubTitles: {
     color: "#595959",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
   orderValues: {
     fontWeight: "600",
@@ -244,10 +250,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#333",
 
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1rem",
+      fontSize: "0.9rem",
     },
     [theme.breakpoints.down("xs")]: {
-      fontSize: "0.9rem",
+      fontSize: "0.8rem",
     },
   },
   statusBox: {

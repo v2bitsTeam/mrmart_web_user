@@ -145,13 +145,24 @@ const Product = ({
           }}
           className={classes.productNameLink}
         >
-          <Typography
-            gutterBottom
-            component="div"
-            className={classes.productName}
-          >
-            {product.name}
-          </Typography>
+          <Hidden smDown>
+            <Typography
+              gutterBottom
+              component="div"
+              className={classes.productName}
+            >
+              {product.name}
+            </Typography>
+          </Hidden>
+          <Hidden mdUp>
+            <Typography
+              gutterBottom
+              component="div"
+              className={classes.productName}
+            >
+              {`${product.name.slice(0, 16)}...`}
+            </Typography>
+          </Hidden>
         </Link>
         <div className={classes.priceBlock}>
           <Typography
@@ -386,6 +397,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 0.25rem",
     background: "#eaeaea",
     borderRadius: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      width: "90%",
+    },
   },
   qtyInput: {
     width: "3rem",
@@ -394,6 +408,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#fff",
     borderRadius: "3px",
     textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "2rem",
+    },
   },
 
   cartBtn: {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Hidden from "@material-ui/core/Hidden";
 import { formatPrice, mediaUrl } from "../../helpers/Constants";
 
 const MyOrderProduct = ({ product, islast }) => {
@@ -33,13 +34,24 @@ const MyOrderProduct = ({ product, islast }) => {
             }}
             className={classes.productNameLink}
           >
-            <Typography
-              variant="body1"
-              component="h2"
-              className={classes.productTitle}
-            >
-              {product.name}
-            </Typography>
+            <Hidden smDown>
+              <Typography
+                variant="body1"
+                component="h2"
+                className={classes.productTitle}
+              >
+                {product.name}
+              </Typography>
+            </Hidden>
+            <Hidden mdUp>
+              <Typography
+                variant="body1"
+                component="h2"
+                className={classes.productTitle}
+              >
+                {`${product.name.slice(0, 20)}...`}
+              </Typography>
+            </Hidden>
           </Link>
           <div className={classes.productDetailsBlock}>
             <Typography

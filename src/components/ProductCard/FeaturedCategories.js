@@ -97,6 +97,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     gap: "1rem",
     flexWrap: "wrap",
+    [theme.breakpoints.down("sm")]: {
+      padding: "0.5rem 0.5rem",
+      gap: "0.4rem",
+    },
   },
   featuredCategoryItem: {
     width: "200px",
@@ -114,6 +118,11 @@ const useStyles = makeStyles((theme) => ({
       height: "150px",
       gap: "0.1rem",
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "135px",
+      height: "135px",
+      gap: "0.1rem",
+    },
   },
   categoryImage: {
     width: "150px",
@@ -128,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
     fontWeight: "500",
     textTransform: "capitalize",
+    textAlign: "center",
     [theme.breakpoints.down("md")]: {
       fontSize: "0.9rem",
     },

@@ -139,7 +139,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     paddingBottom: "0.5rem",
     borderBottom: "0.1rem solid #45454577",
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 0.5rem",
+      padding: "0 0.5rem",
+    },
   },
+
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,

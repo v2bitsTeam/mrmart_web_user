@@ -104,9 +104,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       marginTop: "0vh",
     },
-    [theme.breakpoints.down("xs")]: {
-      marginTop: "10vh",
-    },
   },
   myOrdersContainer: {
     width: "70%",

@@ -123,7 +123,7 @@ const OrderPlaced = () => {
             <Typography
               variant="body1"
               component="h4"
-              className={classes.paymentType}
+              className={classes.deliveryDetails}
             >
               {orderDetails?.order[0].city
                 ? orderDetails.order[0].location +
@@ -131,7 +131,7 @@ const OrderPlaced = () => {
                   orderDetails.order[0].city +
                   ", " +
                   orderDetails.order[0].state +
-                  "," +
+                  ", " +
                   orderDetails.order[0].pincode
                 : ""}
             </Typography>
@@ -217,10 +217,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#333",
 
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1rem",
+      fontSize: "0.9rem",
     },
     [theme.breakpoints.down("xs")]: {
-      fontSize: "0.9rem",
+      fontSize: "0.8rem",
     },
   },
   lastBlock: {
@@ -240,8 +240,14 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.6rem",
     },
   },
+  deliveryDetails: {
+    fontWeight: "600",
+  },
   paymentType: {
     fontWeight: "600",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.8rem",
+    },
   },
   address: {
     padding: "0.5rem 1rem",

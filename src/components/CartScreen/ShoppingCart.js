@@ -4,6 +4,7 @@ import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
+import Hidden from "@material-ui/core/Hidden";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { useCart } from "../../contexts/CartContext";
 import CartItem from "./CartItem";
@@ -31,7 +32,9 @@ const ShoppingCart = ({
             <div className={classes.stylizedUnderline}></div>
           </Typography>
           <div className={classes.minimumOrderContainer}>
-            <LocalShippingIcon fontSize="large" />
+            <Hidden smDown>
+              <LocalShippingIcon fontSize="large" />
+            </Hidden>
             <Typography
               variant="caption"
               gutterBottom
@@ -87,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cartTextTitle: {
     fontFamily: "Zen Dots, cursive",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.8rem",
+    },
   },
   stylizedUnderline: {
     width: "3rem",
@@ -106,14 +112,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     gap: "1rem",
     textAlign: "right",
+    [theme.breakpoints.down("sm")]: {
+      gap: "0.2rem",
+      padding: "0.5rem 0.5rem",
+    },
   },
   minimumOrderText: {
     color: "#dfdfdf",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.7rem",
+    },
   },
   minimumOrderPrice: {
     color: "#fff",
     fontWeight: fonts.bold,
     display: "block",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.8rem",
+    },
   },
   shopCartWrapper: {
     marginTop: "4vh",

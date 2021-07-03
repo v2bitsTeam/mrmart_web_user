@@ -122,37 +122,7 @@ const NavBar = ({
           </IconButton>
           <DrawBar openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </Hidden>
-
-        <Link to="/" className={classes.logoImageContainer}>
-          <img alt={"logo"} src={logoWhite} className={classes.logo} />
-        </Link>
-        {!ordersPage && (
-          <Hidden xsDown>
-            <div className={classes.searchAndSuggestionsWrapper}>
-              <InputBase
-                size="medium"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={(e) => checkEscape(e)}
-                placeholder="Search for the product you like..."
-                className={classes.search}
-                startAdornment={
-                  <InputAdornment position="start">
-                    {<SearchIcon className={classes.searchIcon} />}
-                  </InputAdornment>
-                }
-                classes={{ root: classes.input }}
-              />
-              <SearchSuggestions
-                searchSuggestions={searchSuggestions}
-                clearSearch={clearSearch}
-                ref={searchSuggestionsRef}
-              />
-            </div>
-          </Hidden>
-        )}
-
-        <div className={classes.nav}>
+        <Hidden mdUp>
           <Tooltip
             arrow
             title={!user ? "Please, Login to update location" : ""}
@@ -195,6 +165,82 @@ const NavBar = ({
               />
             </div>
           </Tooltip>
+        </Hidden>
+
+        <Link to="/" className={classes.logoImageContainer}>
+          <img alt={"logo"} src={logoWhite} className={classes.logo} />
+        </Link>
+        {!ordersPage && (
+          <Hidden xsDown>
+            <div className={classes.searchAndSuggestionsWrapper}>
+              <InputBase
+                size="medium"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={(e) => checkEscape(e)}
+                placeholder="Search for the product you like..."
+                className={classes.search}
+                startAdornment={
+                  <InputAdornment position="start">
+                    {<SearchIcon className={classes.searchIcon} />}
+                  </InputAdornment>
+                }
+                classes={{ root: classes.input }}
+              />
+              <SearchSuggestions
+                searchSuggestions={searchSuggestions}
+                clearSearch={clearSearch}
+                ref={searchSuggestionsRef}
+              />
+            </div>
+          </Hidden>
+        )}
+
+        <div className={classes.nav}>
+          <Hidden smDown>
+            <Tooltip
+              arrow
+              title={!user ? "Please, Login to update location" : ""}
+              placement="bottom"
+            >
+              <div
+                className={clsx(classes.userLocationContainer, {
+                  [classes.userLocationContainerFilled]: pincodes.userPincode,
+                  [classes.userLocationContainerEmpty]: !pincodes?.userPincode,
+                  [classes.userLocationContainerNoUser]: !user,
+                })}
+              >
+                <IconButton
+                  color="primary"
+                  aria-label="choose location"
+                  className={classes.pinIconContainer}
+                  disabled={!user ? true : false}
+                  onClick={() => setOpenSelectLocation(true)}
+                >
+                  <PinIcon
+                    className={clsx(classes.pinIcon, {
+                      [classes.pin]: pincodes?.userPincode,
+                      [classes.noPin]: !pincodes?.userPincode,
+                    })}
+                  />
+                </IconButton>
+                {user && pincodes?.userPincode ? (
+                  <div className={classes.userPinCode}>
+                    {pincodes.userPincode.pincode}
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <ChooseLocationModal
+                  openSelectLocation={openSelectLocation}
+                  setOpenSelectLocation={setOpenSelectLocation}
+                  updateSnackbarStatus={updateSnackbarStatus}
+                  updateSnackbarMessage={updateSnackbarMessage}
+                  updateSnackbarSeverity={updateSnackbarSeverity}
+                />
+              </div>
+            </Tooltip>
+          </Hidden>
           <NavLinks />
         </div>
       </div>

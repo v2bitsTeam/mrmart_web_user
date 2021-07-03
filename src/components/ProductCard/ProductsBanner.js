@@ -51,8 +51,11 @@ const useStyles = makeStyles((theme) => ({
   carouselImage: {
     height: "60vh",
     fill: "contain",
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       height: "50vh",
+    },
+    [theme.breakpoints.down("xs")]: {
+      height: "40vh",
     },
   },
 }));

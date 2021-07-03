@@ -378,6 +378,9 @@ const useStyles = makeStyles((theme) => ({
 
   productSubTitles: {
     color: "#777",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
   orderValueCard: {
     padding: "0 2rem",
@@ -423,7 +426,11 @@ const useStyles = makeStyles((theme) => ({
   totalTitle: {
     color: "#777",
   },
-  totalValue: {},
+  totalValue: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.4rem",
+    },
+  },
   proceedBtnWrapper: {
     textDecoration: "none",
   },

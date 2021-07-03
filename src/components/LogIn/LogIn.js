@@ -54,6 +54,7 @@ const LogIn = () => {
       return;
     }
     setLoading(true);
+
     const user = await userLogin(phone, password);
     setLoading(false);
     if (user.role) {

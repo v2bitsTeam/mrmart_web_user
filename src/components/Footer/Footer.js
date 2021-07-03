@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
 import Hidden from "@material-ui/core/Hidden";
 import logoWhite from "../../assets/images/logo-white.png";
+import playStoreIcon from "../../assets/images/playstore.png";
+import appStoreIcon from "../../assets/images/app-store.png";
+import footerImage from "../../assets/images/footer-image.png";
 
 const Footer = () => {
   const classes = useStyles();
@@ -18,8 +23,22 @@ const Footer = () => {
     });
   }
 
+  function openLink(appName) {
+    if (appName === "appStore") {
+      window.open("https://www.apple.com/in/app-store/", "_blank");
+    } else {
+      window.open(
+        "https://play.google.com/store/apps/details?id=com.mrmart.MrMart",
+        "_blank"
+      );
+    }
+  }
+
   return (
     <div className={classes.footer}>
+      <div className={classes.banner}>
+        <img alt={"banner"} src={footerImage} className={classes.bannerImage} />
+      </div>
       <div className={classes.topSection}>
         <Hidden smDown>
           <Typography
@@ -37,11 +56,6 @@ const Footer = () => {
           </div>
         </Hidden>
         <Container className={classes.topSectionBody}>
-          <div className={classes.logoContainer}>
-            <Hidden smDown>
-              <img alt={"logo"} src={logoWhite} className={classes.logo} />
-            </Hidden>
-          </div>
           <div className={classes.topSectionLinksContainer}>
             <Link
               to="/about"
@@ -98,6 +112,82 @@ const Footer = () => {
               </ListItem>
             </Link>
           </div>
+          <div className={classes.topSectionContactUsContainer}>
+            <Typography
+              className={classes.topSectionContactUsTitle}
+              gutterBottom
+              variant="h6"
+              component="h4"
+            >
+              Contact Us
+            </Typography>
+            <Hidden smDown>
+              <Divider />
+            </Hidden>
+            <br />
+            <div className={classes.topSectionContactUsBody}>
+              <Typography gutterBottom variant="body1">
+                WhatsApp us: 7406234567
+              </Typography>
+              <Typography gutterBottom variant="body1">
+                Call us: +91 9666015382
+              </Typography>
+              <Typography gutterBottom variant="body1">
+                6:00 AM to 8:00 PM, 365 days.
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body2">
+                Please, note that you are accessing the BETA version of
+                www.mrmart.co
+              </Typography>
+              <Typography gutterBottom variant="body2">
+                Should you encounter any bugs, glitches, lack of functionality,
+                delayed deliveries, billing errors or other problems on the BETA
+                version of the website, please email us on info@mrmart.co.in
+              </Typography>
+            </div>
+          </div>
+          <div className={classes.topSectionAppLinks}>
+            <Typography
+              gutterBottom
+              variant="h6"
+              className={classes.topSectionAppTitle}
+            >
+              For Mobile Apps
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              className={classes.topSectionAppSubTitle}
+            >
+              Download Now
+            </Typography>
+            <br />
+            <div className={classes.storeButtons}>
+              <IconButton
+                onClick={() => openLink("playStore")}
+                aria-label="play-store"
+                className={classes.playStoreIconButton}
+              >
+                <img
+                  alt={"play-store"}
+                  src={playStoreIcon}
+                  className={classes.storeIcons}
+                />
+              </IconButton>
+              <IconButton
+                onClick={() => openLink("appStore")}
+                aria-label="app-store"
+                className={classes.appStoreIconButton}
+              >
+                <img
+                  alt={"app-store"}
+                  src={appStoreIcon}
+                  className={classes.storeIcons}
+                />
+              </IconButton>
+            </div>
+          </div>
         </Container>
       </div>
       <div className={classes.bottomSection}>
@@ -124,6 +214,16 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "space-betweem",
     justifyContent: "center",
     color: "#efefef",
+  },
+  banner: {
+    padding: "1rem",
+    background: "#424242",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bannerImage: {
+    width: "80vw",
   },
   topSection: {
     padding: "0 7.5%",
@@ -157,8 +257,14 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
     },
   },
+  logoContainer: {
+    width: "20%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   topSectionLinksContainer: {
-    width: "50%",
+    width: "40%",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
@@ -167,22 +273,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#efefef",
     textDecoration: "none",
   },
-  logoContainer: {
-    width: "30%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  socialsContainer: {
-    flexDirection: "column",
-    gap: "3rem",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      paddingTop: "1rem",
-      paddingBottom: "1rem",
-      justifyContent: "space-around",
-    },
-  },
+
   logo: {
     height: "12vh",
     objectFit: "contain",
@@ -190,7 +281,73 @@ const useStyles = makeStyles((theme) => ({
       alignSelf: "center",
     },
   },
-
+  topSectionContactUsContainer: {
+    width: "40%",
+    margin: "0 1rem",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      margin: "0.5rem",
+    },
+  },
+  topSectionContactUsTitle: {
+    paddingBottom: "0.5rem",
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: 0,
+      textDecoration: "underline",
+    },
+  },
+  topSectionContactUsBody: {
+    padding: "0 1rem",
+    [theme.breakpoints.down("sm")]: {
+      padding: "0 0.5rem",
+    },
+  },
+  topSectionAppLinks: {
+    width: "20%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      margin: "1rem 0",
+    },
+  },
+  topSectionAppTitle: {
+    [theme.breakpoints.down("sm")]: {
+      alignSelf: "flex-start",
+      padding: "0 1rem",
+      textDecoration: "underline",
+    },
+  },
+  topSectionAppSubTitle: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "1rem",
+    },
+  },
+  storeButtons: {
+    display: "flex",
+    gap: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "0.4rem",
+      width: "100%",
+      justifyContent: "space-evenly",
+    },
+  },
+  playStoreIconButton: {
+    "&:hover": {
+      background: "#FB8C0033",
+    },
+  },
+  storeIcons: {
+    width: "2rem",
+    height: "2rem",
+  },
+  appStoreIconButton: {
+    "&:hover": {
+      background: "#0288D133",
+    },
+  },
   bottomSection: {
     background: "#212121",
     color: "#fafafa",

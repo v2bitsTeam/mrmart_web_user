@@ -6,6 +6,7 @@ import ListItem from "@material-ui/core/List";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import Hidden from "@material-ui/core/Hidden";
 import fetchCartItems from "./fetchCartItems";
 import updateCartItems from "./updateCartItems";
 import DeleteCartItemDialog from "./DeleteCartItemDialog";
@@ -90,13 +91,24 @@ const CartItem = ({
             }}
             className={classes.linkReset}
           >
-            <Typography
-              variant="h6"
-              component="div"
-              className={classes.productTitle}
-            >
-              {item.name}
-            </Typography>
+            <Hidden smDown>
+              <Typography
+                variant="h6"
+                component="div"
+                className={classes.productTitle}
+              >
+                {item.name}
+              </Typography>
+            </Hidden>
+            <Hidden mdUp>
+              <Typography
+                variant="h6"
+                component="div"
+                className={classes.productTitle}
+              >
+                {`${item.name.slice(0, 14)}...`}
+              </Typography>
+            </Hidden>
           </Link>
           <div className={classes.priceContainer}>
             <Typography
@@ -197,6 +209,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     padding: "1rem",
     margin: "1rem 0",
+    [theme.breakpoints.down("sm")]: {
+      padding: "1rem 0.2rem",
+    },
   },
   productImage: {
     width: "176px",
@@ -232,7 +247,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.4rem",
     color: "#292929",
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1.2rem",
+      fontSize: "1rem",
     },
   },
   priceContainer: {
@@ -241,12 +256,19 @@ const useStyles = makeStyles((theme) => ({
     gap: "1rem",
   },
 
-  productPrice: {},
+  productDiscountedPrice: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.9rem",
+    },
+  },
   productActualPrice: {
     textDecoration: "line-through",
     color: "#454545cc",
     textAlign: "right",
     fontWeight: "500",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.8rem",
+    },
   },
 
   qtyBlock: {
@@ -259,6 +281,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "0.1rem 0.25rem",
     background: "#eaeaea",
     borderRadius: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      width: "130px",
+    },
   },
   qtyInput: {
     width: "2.2rem",
@@ -277,13 +302,22 @@ const useStyles = makeStyles((theme) => ({
   },
   productSubTitles: {
     color: "#777",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
   productDiscountedTotal: {
     textAlign: "right",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
   productCalculatedPrice: {
     textAlign: "right",
     textDecoration: "line-through",
     color: "#777",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
 }));
