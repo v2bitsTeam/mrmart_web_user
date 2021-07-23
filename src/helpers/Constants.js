@@ -1,4 +1,4 @@
-export const baseUrl = "http://mrmart.co/";
+export const baseUrl = "https://mrmart.co/";
 export const mediaUrl = baseUrl + "images/";
 
 export const formatPrice = Intl.NumberFormat("en-IN", {
