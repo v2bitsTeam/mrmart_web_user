@@ -14,6 +14,7 @@ import {
   useSelectedCategoryIdUpdate,
 } from "../../contexts/SelectedCategoryId";
 import fetchCategories from "./fetchCategories";
+import { useFeaturedProducts } from "../../contexts/FeaturedProductsContext";
 
 const CategoriesBar = () => {
   const classes = useStyles();
@@ -23,7 +24,6 @@ const CategoriesBar = () => {
   const updateCategories = useCategoriesUpdate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [featuredCategories, setFeaturedCategories] = useState([]);
-
   useEffect(() => {
     let mounted = true;
 
@@ -71,7 +71,7 @@ const CategoriesBar = () => {
 
   function scrollToProducts() {
     window.scrollTo({
-      top: 900,
+      top: 600,
       behavior: "smooth",
     });
   }
